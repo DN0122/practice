@@ -1,0 +1,17 @@
+.form-section { background-color: #fff; padding: 2rem; border-radius: 8px; margin-bottom: 2rem; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.form-section h3 { margin-top: 0; }
+/* フォームの要素を横並びにするためのFlexboxコンテナ */
+/* フォームの要素を横並びにするためのFlexboxコンテナ */
+.form-row {
+    display: flex;
+    gap: 24px;                 /* ボックス間の隙間を指定 */
+    align-items: flex-end;     /* 下端を揃える */
+    max-width: 700px;          /* ★★★ これを追加 ★★★ コンテナの最大幅を設定 */
+    margin-bottom: 24px;       /* ★★★ これを追加 ★★★ 下のボタンとの間隔を確保 */
+  }
+  
+  /* form-row内のform-groupのスタイル調整 */
+  .form-row .form-group {
+    flex: 1;                   /* 利用可能なスペースを均等に分け合う */
+    /* margin-bottomは親の.form-rowに移動させたので、ここからは削除してもOKです */
+  }

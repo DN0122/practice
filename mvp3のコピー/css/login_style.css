@@ -1,0 +1,111 @@
+/* 全体の基本設定 */
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* ログインフォームのコンテナ */
+.login-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 24px;
+}
+
+/* 各入力欄のグループ */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box; /* paddingを含めて幅を100%にするため */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+/* ログインボタン */
+.login-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+.login-button:active {
+    transform: scale(0.98);
+}
+
+/* エラーメッセージ */
+.error-message {
+    color: #d93025;
+    text-align: center;
+    margin-top: 16px;
+    font-size: 14px;
+    height: 1em; /* メッセージがない時も高さを確保 */
+}
+
+
+/* 自動入力ボタンのスタイル */
+.autofill-button {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd; /* 枠線を追加 */
+    border-radius: 6px;
+    background-color: #f0f0f0; /* 薄いグレーの背景 */
+    color: #555; /* 暗めの文字色 */
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 10px; /* ログインボタンとの間に余白を追加 */
+}
+
+.autofill-button:hover {
+    background-color: #e0e0e0;
+}
+
+.autofill-button:active {
+    transform: scale(0.98);
+}

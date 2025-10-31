@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新規送信 - メール送信・管理プラットフォーム</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/new_message.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <button class="hamburger" onclick="toggleSidebar()">☰</button>
+        </div>
+        <div class="header-right">
+            <button id="go-login-btn" class="header-btn" title="ログイン画面へ">ログイン画面へ</button>
+            <button id="reset-storage-btn" class="header-btn" title="保存データをリセット">リセット</button>
+            <div class="dropdown-container">
+                <button class="header-btn" onclick="toggleDropdown('user-dropdown')">ユーザー</button>
+                <div class="dropdown" id="user-dropdown">
+                    <div class="dropdown-item">プロフィール設定</div>
+                    <div class="dropdown-item">パスワード変更</div>
+                    <div class="dropdown-item">アカウント設定</div>
+                    <div class="dropdown-item">ログアウト</div>
+                </div>
+            </div>
+            <div class="dropdown-container">
+                <button class="header-btn">通知</button>
+                <div class="dropdown" id="notification-dropdown">
+                    <div class="dropdown-item">通知設定</div>
+                    <div class="dropdown-item">メール通知</div>
+                    <div class="dropdown-item">プッシュ通知</div>
+                    <div class="dropdown-item">通知履歴</div>
+                </div>
+            </div>
+            <button class="header-btn">ガイド</button>
+            <button class="header-btn">チャット</button>
+        </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <nav>
+            <ul class="sidebar-menu">
+                <li class="sidebar-item"><a href="./new_message.html" class="sidebar-link active"><span class="sidebar-icon"></span>送信設定</a></li>
+                <li class="sidebar-item"><a href="./delivery_list.html" class="sidebar-link"><span class="sidebar-icon"></span>送信結果</a></li>
+                <li class="sidebar-item"><a href="./mail_system.html" class="sidebar-link"><span class="sidebar-icon"></span>メール自動振り分け</a></li>
+                <li class="sidebar-item"><a href="#" class="sidebar-link"><span class="sidebar-icon"></span>テンプレート管理</a></li>
+                <li class="sidebar-item"><a href="#" class="sidebar-link"><span class="sidebar-icon"></span>顧客管理</a></li>
+                <li class="sidebar-item"><a href="#" class="sidebar-link"><span class="sidebar-icon"></span>分析レポート</a></li>
+                <li class="sidebar-item"><a href="#" class="sidebar-link"><span class="sidebar-icon"></span>システム設定</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content" id="main-content">
+        <nav class="breadcrumb">
+            <a href="./home.html">ホーム</a>
+            <span class="separator">›</span>
+            <span>新規送信</span>
+        </nav>
+        <h1>新規送信</h1>
+
+        <div class="vertical-tab-container">
+            <nav class="vertical-tab-nav">
+                <a href="#vtab1" class="vertical-tab-link active" data-tab="vtab1"><span class="tab-icon"></span> ① リストインポート</a>
+                <a href="#vtab2" class="vertical-tab-link" data-tab="vtab2"><span class="tab-icon"></span> ② 送信設定</a>
+                <a href="#vtab3" class="vertical-tab-link" data-tab="vtab3"><span class="tab-icon"></span> ③ 送信予約</a>
+            </nav>
+
+            <div class="vertical-tab-content-area">
+                <div id="vtab1" class="vertical-tab-pane active">
+                    <section class="form-section" id="list-import-section">
+                        <h3>リストインポート<button class="btn btn-primary btn-sm save-tab-button" data-section-id="list-import-section">変更を保存</button></h3>
+                        <div class="notice">
+                            注意事項・ヒント: CSVファイルをアップロードするか、URLを指定してリストをインポートできます。最大10,000件まで対応しています。
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>インポートURL</th>
+                                        <th>ドメイン</th>
+                                        <th>配信対象</th>
+                                        <th>配信日時</th>
+                                        <th>送信完了</th>
+                                        <th>摘要</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>001</td>
+                                        <td>https://example.com/list1.csv</td>
+                                        <td>example.com</td>
+                                        <td>1,250</td>
+                                        <td>2024-01-15 10:30</td>
+                                        <td>1,245</td>
+                                        <td>通常配信</td>
+                                    </tr>
+                                    <tr>
+                                        <td>002</td>
+                                        <td>-</td>
+                                        <td>sample.com</td>
+                                        <td>850</td>
+                                        <td>2024-01-15 11:45</td>
+                                        <td>処理中</td>
+                                        <td>緊急メンテナンス</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-row">
+                        <div class="form-group">
+                            <label for="import-file">CSVファイルをアップロード:</label>
+                            <input type="file" id="import-file" accept=".csv">
+                        </div>
+                        <div class="form-group">
+                            <label for="list">リスト選択</label>
+                            <select id="list">
+                                <option>No.1</option>
+                                <option>No.2</option>
+                                <option>その他</option>
+                            </select>
+                        </div>
+                    </div>
+                    </section>
+                </div>
+
+                <div id="vtab2" class="vertical-tab-pane">
+                    <section class="form-section" id="datetime-section">
+                        <h3>送信日付・日時設定<button class="btn btn-primary btn-sm save-tab-button" data-section-id="datetime-section">変更を保存</button></h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="send-date">送信日:</label>
+                                <input type="date" id="send-date">
+                            </div>
+                            <div class="form-group">
+                                <label for="send-time">送信時刻:</label>
+                                <input type="time" id="send-time">
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="form-section" id="sender-info-section">
+                        <h3>送信者情報<button class="btn btn-primary btn-sm save-tab-button" data-section-id="sender-info-section">変更を保存</button></h3>
+                        <div class="form-group">
+                            <label for="template">テンプレート選択:</label>
+                            <select id="template">
+                                <option value="">テンプレートを選択してください</option>
+                                <option value="template1">A</option>
+                                <option value="template2">B</option>
+                                <option value="template3">C</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="company-name">会社名</label>
+                            <input type="text" id="company-name" placeholder="株式会社サンプル">
+                        </div>
+                        <div class="form-group">
+                            <label for="company-kana">フリガナ</label>
+                            <input type="text" id="company-kana" placeholder="カブシキガイシャサンプル">
+                        </div>
+                        <div class="form-group">
+                            <label for="sender-name">氏名</label>
+                            <input type="text" id="sender-name" placeholder="田中 太郎">
+                        </div>
+                        <div class="form-group">
+                            <label for="sender-kana">フリガナ</label>
+                            <input type="text" id="sender-kana" placeholder="タナカ タロウ">
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">性別</label>
+                            <select id="gender">
+                                <option>男性</option>
+                                <option>女性</option>
+                                <option>その他</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="position">役職</label>
+                            <input type="text" id="position" placeholder="部長">
+                        </div>
+                        <div class="form-group">
+                            <label for="department">部署</label>
+                            <input type="text" id="department" placeholder="営業部">
+                        </div>
+                        <div class="form-group">
+                            <label for="industry">業種</label>
+                            <input type="text" id="industry" placeholder="IT・ソフトウェア">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">住所</label>
+                            <input type="text" id="address" placeholder="東京都千代田区...">
+                        </div>
+                        <div class="form-group">
+                            <label for="sender-email">メールアドレス</label>
+                            <input type="email" id="sender-email" placeholder="tanaka@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="tel">電話番号</label>
+                            <input type="tel" id="tel" placeholder="03-1234-5678">
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile">携帯電話番号</label>
+                            <input type="tel" id="mobile" placeholder="090-1234-5678">
+                        </div>
+                        <div class="form-group">
+                            <label for="url">URL</label>
+                            <input type="url" id="url" placeholder="https://example.com">
+                        </div>
+                    </section>
+
+                    <section class="form-section" id="message-body-section">
+                        <h3>送信本文<button class="btn btn-primary btn-sm save-tab-button" data-section-id="message-body-section">変更を保存</button></h3>
+                        <div class="form-group">
+                            <label for="template-body">テンプレート選択:</label>
+                            <select id="template-body">
+                                <option value="">テンプレートを選択してください</option>
+                                <option value="template1">新商品案内</option>
+                                <option value="template2">セール情報</option>
+                                <option value="template3">イベント告知</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="email-subject">件名:</label>
+                            <input type="text" id="email-subject" placeholder="件名を入力してください">
+                        </div>
+                        <div class="form-group">
+                            <label for="email-body">本文:</label>
+                            <textarea id="email-body" placeholder="メール本文を入力してください" rows="10"></textarea>
+                        </div>
+                    </section>
+                    
+                    <section class="form-section" id="link-settings-section">
+                        <h3>リンク設定<button class="btn btn-primary btn-sm save-tab-button" data-section-id="link-settings-section">変更を保存</button></h3>
+                        <div class="form-group">
+                            <label for="link-url">リンク先URL:</label>
+                            <input type="url" id="link-url" placeholder="https://example.com/landing">
+                        </div>
+                        <div class="form-group">
+                            <label for="tracking-url">クリック測定用変換URL:</label>
+                            <input type="url" id="tracking-url" placeholder="https://track.example.com/click">
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="enable-tracking"> クリック測定を有効にする
+                            </label>
+                        </div>
+                    </section>
+                </div>
+
+                <div id="vtab3" class="vertical-tab-pane">
+                    <section class="form-section" id="reservation-section">
+                        <h3>送信予約
+                            <button class="btn btn-primary btn-sm save-tab-button" data-section-id="reservation-section">変更を保存</button>
+                        </h3>
+                        <div class="summary">
+                            <h4>設定内容まとめ (①〜⑤)</h4>
+                            <div class="summary-item">
+                                <span class="summary-label">送信予定日時:</span>
+                                <span class="summary-value" id="summary-datetime">未設定</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">送信者:</span>
+                                <span class="summary-value" id="summary-sender">未設定</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">件名:</span>
+                                <span class="summary-value" id="summary-subject">未設定</span>
+                            </div>
+                            <div class="summary-item">
+                                <span class="summary-label">送信先件数:</span>
+                                <span class="summary-value" id="summary-count">0件</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="confirmSend()">送信内容を確定し、プレビューへ進む</button>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">お問い合わせページ</a>
+            <a href="#">プライバシーポリシー</a>
+            <a href="#">利用規約</a>
+            <a href="#">ヘルプセンター</a>
+            <a href="#">サポート</a>
+        </div>
+        <p>&copy; 2025 メール送信・管理プラットフォーム. All rights reserved.</p>
+    </footer>
+
+    <div id="custom-modal-overlay" class="modal-overlay">
+        <div class="modal-box">
+            <h4 id="modal-title" class="modal-title"></h4>
+            <div id="modal-content" class="modal-content"></div>
+            <div class="modal-footer">
+                <button id="modal-cancel-btn" class="btn btn-secondary"></button>
+                <button id="modal-ok-btn" class="btn btn-primary"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/common.js"></script>
+    <script src="../js/new_message.js"></script>
+</body>
+</html>
