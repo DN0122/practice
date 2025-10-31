@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メール自動振り分け - メール送信・管理プラットフォーム</title>
+    <link rel="stylesheet" href="../css/common.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <button class="hamburger" onclick="toggleSidebar()">☰</button>
+        </div>
+        <div class="header-right">
+            <button id="go-login-btn" class="header-btn" title="ログイン画面へ">ログイン画面へ</button>
+            <button id="reset-storage-btn" class="header-btn" title="保存データをリセット">リセット</button>
+            <div class="dropdown-container">
+                <button class="header-btn" onclick="toggleDropdown('user-dropdown')">ユーザー</button>
+                <div class="dropdown" id="user-dropdown">
+                    <div class="dropdown-item">プロフィール設定</div>
+                    <div class="dropdown-item">パスワード変更</div>
+                    <div class="dropdown-item">アカウント設定</div>
+                    <div class="dropdown-item">ログアウト</div>
+                </div>
+            </div>
+            <div class="dropdown-container">
+                <button class="header-btn">通知</button>
+                <div class="dropdown" id="notification-dropdown">
+                    <div class="dropdown-item">通知設定</div>
+                    <div class="dropdown-item">メール通知</div>
+                    <div class="dropdown-item">プッシュ通知</div>
+                    <div class="dropdown-item">通知履歴</div>
+                </div>
+            </div>
+            <button class="header-btn">ガイド</button>
+            <button class="header-btn">チャット</button>
+        </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <nav>
+            <ul class="sidebar-menu">
+                <li class="sidebar-item"><a href="./new_message.html" class="sidebar-link"><span class="sidebar-icon"></span>送信設定</a></li>
+                <li class="sidebar-item"><a href="./delivery_list.html" class="sidebar-link"><span class="sidebar-icon"></span>送信結果</a></li>
+                <li class="sidebar-item"><a href="./mail_system.html" class="sidebar-link active"><span class="sidebar-icon"></span>メール自動振り分け</a></li>
+                <li class="sidebar-item"><a href="#" class="sidebar-link"><span class="sidebar-icon"></span>テンプレート管理</a></li>
+                <li class="sidebar-item"><a href="#" class="sidebar-link"><span class="sidebar-icon"></span>顧客管理</a></li>
+                <li class="sidebar-item"><a href="#" class="sidebar-link"><span class="sidebar-icon"></span>分析レポート</a></li>
+                <li class="sidebar-item"><a href="#" class="sidebar-link"><span class="sidebar-icon"></span>システム設定</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content" id="main-content">
+        <nav class="breadcrumb">
+            <a href="./home.html">ホーム</a>
+            <span class="separator">›</span>
+            <span>メール自動振り分け</span>
+        </nav>
+        <h3>メール自動振り分け設定</h3>
+        <p>受信メールを自動的に分類・振り分けするルールを設定できます。</p>
+        <div class="form-section">
+            <p>（ここに自動振り分け設定フォームの要素が入ります）</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">お問い合わせページ</a>
+            <a href="#">プライバシーポリシー</a>
+            <a href="#">利用規約</a>
+            <a href="#">ヘルプセンター</a>
+            <a href="#">サポート</a>
+        </div>
+        <p>&copy; 2025 メール送信・管理プラットフォーム. All rights reserved.</p>
+    </footer>
+
+    <div id="custom-modal-overlay" class="modal-overlay">
+        <div class="modal-box">
+            <h4 id="modal-title" class="modal-title"></h4>
+            <div id="modal-content" class="modal-content"></div>
+            <div class="modal-footer">
+                <button id="modal-cancel-btn" class="btn btn-secondary"></button>
+                <button id="modal-ok-btn" class="btn btn-primary"></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/common.js"></script>
+</body>
+</html>

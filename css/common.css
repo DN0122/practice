@@ -1,0 +1,805 @@
+/* =================================================================
+   基本設定 & リセットCSS
+================================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+/* =================================================================
+   Header / 🧭 ヘッダー
+================================================================= */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #667eea; /* ★ 変更点: 別の単色に変更 */
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.hamburger {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.hamburger:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.header-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    position: relative;
+}
+
+.header-btn:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* ドロップダウンメニュー */
+.dropdown-container {
+    position: relative;
+}
+
+.dropdown {
+    position: absolute;
+    top: calc(100% + 10px); /* ボタンとの隙間 */
+    right: 0;
+    background: white;
+    color: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.dropdown-container:hover .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+/* =================================================================
+   Sidebar / 📂 サイドメニュー
+================================================================= */
+.sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 300px;
+    height: calc(100vh - 60px);
+    
+    /* 背景を半透明の白（65%の不透明度）に変更 */
+    background: rgba(255, 255, 255, 0.65);
+    
+    /* 【推奨】背景をぼかす「すりガラス」効果を追加 */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px); /* Safari向け */
+
+    box-shadow: 2px 0 15px rgba(0,0,0,0.2); /* 影を少し強調 */
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 999; /* z-indexはヘッダー(1000)より下、オーバーレイ(998)より上なので適切 */
+    overflow-y: auto;
+    border-right: 1px solid rgba(0,0,0,0.05); /* 境界線を少しだけ表示 */
+}
+
+.sidebar.open {
+    transform: translateX(0);
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 20px 0;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-link:hover {
+    background-color: #f8f9fa;
+    border-left-color: #764ba2; /* Accent color */
+}
+
+.sidebar-link.active {
+    background-color: #e3f2fd;
+    border-left-color: #667eea; /* Primary color */
+    color: #667eea;
+    font-weight: 600;
+}
+
+.sidebar-icon {
+    margin-right: 12px;
+    font-size: 18px;
+    width: 20px; /* アイコンの幅を固定 */
+    text-align: center;
+}
+
+/* =================================================================
+   Main Content / 📤 メインコンテンツ
+================================================================= */
+.main-content {
+    padding: 20px;
+    margin-top: 60px; /* ヘッダーの高さ分 */
+    transition: margin-left 0.3s ease-in-out;
+    background-color: #f5f5f5;
+    min-height: calc(100vh - 60px); /* フッターを最下部に保つため */
+}
+
+/* Breadcrumbs */
+.breadcrumb { font-size: 0.9em; margin-bottom: 12px; color: #666; }
+.breadcrumb a { color: #667eea; text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb .separator { margin: 0 6px; color: #999; }
+
+/* =================================================================
+   Tab Navigation / タブ切り替え
+================================================================= */
+.tab-navigation {
+    display: flex;
+    flex-wrap: wrap; /* スマホ表示で折り返すように */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.tab-input {
+    display: none;
+}
+
+.tab-label {
+    flex-grow: 1; /* タブ幅を均等に */
+    padding: 15px 20px;
+    text-align: center;
+    cursor: pointer;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    color: #555;
+}
+
+.tab-label:hover {
+    background: #e9ecef;
+    color: #333;
+}
+
+.tab-input:checked + .tab-label {
+    background: white;
+    border-bottom-color: #667eea;
+    color: #667eea;
+    font-weight: 600;
+}
+
+.tab-content {
+    display: none;
+    order: 99; /* 全タブの後ろに配置 */
+    width: 100%;
+    background: white;
+    border-radius: 0 0 8px 8px; /* 上の角は丸めない */
+    padding: 30px;
+    animation: fadeIn 0.4s ease;
+}
+
+.tab-input:checked + .tab-label + .tab-content {
+    display: block;
+}
+
+/* =================================================================
+   Forms / フォーム関連
+================================================================= */
+.form-section {
+    margin-bottom: 40px; /* セクション間の余白を広めに */
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.form-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.form-section h3 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.1em;
+    font-weight: 600;
+    border-bottom: 2px solid #667eea;
+    padding-bottom: 8px;
+    display: inline-block; /* ボーダーがテキスト幅に追従するように */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+    font-size: 0.9em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="url"],
+.form-group input[type="tel"],
+.form-group input[type="date"],
+.form-group input[type="time"],
+.form-group input[type="file"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background-color: #fff;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+/* チェックボックス */
+.form-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+    transform: translateY(2px);
+}
+
+/* =================================================================
+   Table / テーブル
+================================================================= */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9em;
+    white-space: nowrap; /* 横スクロール時に改行させない */
+}
+
+th {
+    background: #f8f9fa;
+    font-weight: 600;
+    color: #333;
+}
+
+tbody tr:hover {
+    background: #f8f9fa;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* =================================================================
+   Button / ボタン
+================================================================= */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.btn-primary {
+    background-color: #667eea; /* ★ 変更点: グラデーションから単色へ */
+    color: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.btn-primary:hover {
+    background-color: #5a6fd8; /* ★ 追加点: ホバー時に少し暗くする */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #f0f0f0;
+    color: #555;
+    border: 1px solid #ddd;
+}
+
+.btn-secondary:hover {
+    background: #e0e0e0;
+}
+/* =================================================================
+   Footer / 🦶 フッター
+================================================================= */
+.footer {
+    background: #333;
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 15px;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #667eea;
+}
+
+.footer p {
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+/* =================================================================
+   Utility & Component / 共通コンポーネント
+================================================================= */
+/* 注意事項・ヒント */
+.notice {
+    background: #e3f2fd;
+    border-left: 4px solid #2196f3;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 20px 0;
+    color: #1976d2;
+    font-size: 0.9em;
+}
+
+/* 設定内容まとめ */
+.summary {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.summary h4 {
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: 600;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9em;
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-label {
+    font-weight: 600;
+    color: #555;
+}
+
+.summary-value {
+    color: #333;
+    font-family: monospace; /* 等幅フォントで見やすく */
+}
+
+/* オーバーレイ（モバイル用） */
+.overlay {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* =================================================================
+   Animation / アニメーション
+================================================================= */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =================================================================
+   Responsive Design / レスポンシブデザイン
+================================================================= */
+/* PC first (min-width: 768px) -> tablet/mobile (max-width: 767px) */
+
+/* ▼▼▼▼▼ ここからが変更箇所 ▼▼▼▼▼ */
+
+/* PC表示のスタイルを変更します */
+@media (min-width: 768px) {
+    /* 【削除】 bodyのグリッドレイアウト設定を削除（またはコメントアウト）します */
+    /*
+    body {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        grid-template-rows: 60px 1fr auto;
+        grid-template-areas:
+            "header header"
+            "sidebar main"
+            "sidebar footer";
+    }
+    .header { grid-area: header; }
+    .sidebar { grid-area: sidebar; }
+    .main-content { grid-area: main; }
+    .footer { grid-area: footer; }
+    */
+
+    /* 【削除】サイドバーを常に表示させる設定を削除 */
+    /*
+    .sidebar {
+        transform: translateX(0);
+        position: relative;
+        top: 0;
+        height: 100%;
+    }
+    */
+
+    /* 【削除】メインコンテンツのマージンリセットを削除 */
+    /*
+    .main-content {
+        margin-top: 0;
+        margin-left: 0;
+    }
+    */
+
+    /* 【変更】ハンバーガーボタンを常に表示させます */
+    .hamburger {
+        display: block; /* noneからblockに変更 */
+    }
+
+    /* 【削除】オーバーレイはモバイル専用なのでこのメディアクエリからは削除 */
+    /*
+    .overlay {
+        display: none;
+    }
+    */
+}
+
+/* ▲▲▲▲▲ ここまでが変更箇所 ▲▲▲▲▲ */
+
+/* Tablet & Mobile表示 */
+@media (max-width: 767px) {
+    .header-right {
+        gap: 10px;
+    }
+
+    .header-btn {
+        font-size: 18px;
+        padding: 6px;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    .tab-content {
+        padding: 20px;
+    }
+
+    .form-section {
+        padding: 15px;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .btn:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/* =================================================================
+   Vertical Tabs / 縦型タブ
+================================================================= */
+.vertical-tab-container {
+    display: flex;
+    gap: 20px;
+}
+
+/* 縦型タブ ナビゲーション（盾） */
+.vertical-tab-nav {
+    flex: 0 0 260px; /* ナビゲーションの幅を220pxで固定 */
+    border-right: 1px solid #eee;
+    padding-right: 20px;
+}
+
+.vertical-tab-link {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+    border: 1px solid transparent;
+}
+
+.vertical-tab-link .tab-icon {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.vertical-tab-link:hover {
+    background-color: #f8f9fa;
+}
+
+.vertical-tab-link.active {
+    background-color: #e3f2fd;
+    color: #667eea;
+    font-weight: 600;
+    border: 1px solid #667eea;
+}
+
+/* 縦型タブ コンテンツエリア */
+.vertical-tab-content-area {
+    flex-grow: 1; /* 残りの幅をすべて使用 */
+}
+
+.vertical-tab-pane {
+    display: none; /* コンテンツはデフォルトで非表示 */
+    animation: fadeIn 0.4s ease;
+}
+
+.vertical-tab-pane.active {
+    display: block; /* activeクラスがついたものだけ表示 */
+}
+
+
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+/* モバイル表示用の調整 */
+@media (max-width: 900px) {
+    .vertical-tab-container {
+        flex-direction: column; /* 縦並びにする */
+    }
+    .vertical-tab-nav {
+        display: flex; /* 横並びのスクロールメニューにする */
+        overflow-x: auto;
+        border-right: none;
+        border-bottom: 2px solid #eee;
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+    .vertical-tab-link {
+        white-space: nowrap; /* テキストを改行させない */
+    }
+}
+
+
+
+/* アニメーションの定義 */
+@keyframes fadeInDot {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =================================================================
+   Custom Modal / カスタムモーダル
+================================================================= */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none; /* 初期状態では非表示 */
+    align-items: center;
+    justify-content: center;
+    z-index: 2000; /* ヘッダーより手前に表示 */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex; /* activeクラスがついたら表示 */
+    opacity: 1;
+}
+
+.modal-box {
+    background-color: white;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 450px;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-box {
+    transform: scale(1);
+}
+
+.modal-title {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1.2em;
+}
+
+.modal-content {
+    margin-bottom: 24px;
+    line-height: 1.7;
+    /* 改行(\n)を正しく表示させるためのスタイル */
+    white-space: pre-wrap;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* ハイライト効果のためのスタイル */
+.form-section.save-highlight {
+    /* box-shadowを使うとレイアウトが崩れず、枠線のように見せることができます */
+    box-shadow: 0 0 0 4px #4CAF50; /* 緑色の枠線（影） */
+  }
+  
+  /* ハイライトがスムーズに表示・非表示されるようにtransitionを追加 */
+  .form-section {
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+/* 完了したタブメニューのスタイル */
+.vertical-tab-link.tab-completed {
+    font-weight: 600; /* 少し太字に */
+}
+
+/* ★★★ ここから追記 ★★★ */
+/* 完了したタブ内のアイコンの横に緑の点を表示 */
+.vertical-tab-link.tab-completed .tab-icon::after {
+    content: ''; /* 擬似要素に必須 */
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    background-color: #28a745; /* 成功を示す緑色 */
+    border-radius: 50%; /* 円形にする */
+    margin-left: 8px; /* アイコンとの間に余白を作る */
+    vertical-align: middle; /* 上下中央に揃える */
+    animation: fadeInDot 0.5s ease; /* アニメーションを適用 */
+}
+/* ★★★ ここまで追記 ★★★ */
+  
+ 
